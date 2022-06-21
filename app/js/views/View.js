@@ -1,8 +1,8 @@
 class View {
     constructor(selector) {
-        this.elementView = DomHelper.getBySelector(selector);
+        this.elementView = $(selector);
     }
     update(model) {
-        this.elementView.innerHTML = this.template(model);
+        this.elementView.html(this.template(model));
     }
 }
