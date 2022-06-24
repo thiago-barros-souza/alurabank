@@ -1,4 +1,4 @@
-class Negociacao 
+export class Negociacao 
 {
     constructor(private data: Date, private quantidade: number, private valor: number) { }
 
