@@ -21,9 +21,9 @@ export class NegociacoesView extends View<Negociacoes>
                     ${model.paraArray().map((model: Negociacao) =>
                         `
                             <tr>
-                                <td>${ConversorHelper.getDateBR(model.getData())}</td>
-                                <td>${model.getQuantidade()}</td>
-                                <td>${model.getValor()}</td>
+                                <td>${ConversorHelper.getDateBR(model.data)}</td>
+                                <td>${model.quantidade}</td>
+                                <td>${model.valor}</td>
                                 <td>${model.getVolume()}</td>
                             </tr>
                         `

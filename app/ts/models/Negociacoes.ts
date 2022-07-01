@@ -15,6 +15,6 @@ export class Negociacoes
          * Programação defesiva, 
          * vedando possibilidade de alguem pegar a referencia do meu array e realizar modificação
          */
-        return [].concat(this.listaNegociacao);
+        return ([] as Array<Negociacao>).concat(this.listaNegociacao);
     }
 }

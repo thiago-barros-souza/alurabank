@@ -2,9 +2,14 @@
     "compilerOptions": {
         "target": "es6",
         "outDir": "app/js",
+        "typeRoots": [
+            "node_modules/@types/"
+        ],
         "noEmitOnError": true,
         "noImplicitAny": true,
         "removeComments": true,
+        "strictNullChecks": true,
+        "experimentalDecorators": false,
         "module": "system"
     },
     "include": [
