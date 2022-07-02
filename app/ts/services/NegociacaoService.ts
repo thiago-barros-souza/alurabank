@@ -8,7 +8,10 @@ export class NegociacaoService extends ApiService {
             .then((response: Response) => this._ehOk(response))
             .then(response => response.json())
             .then((dado: Array<Dado>) => dado)
-            .catch(error => console.log(console.error(error)));
+            .catch(error => {
+                console.error(error);
+                throw new Error(MessageHelper.FALHA_CONSULTA_DADOS);
+            });
     }
 }
 

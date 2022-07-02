@@ -7,43 +7,42 @@ import { imprimir } from '../helpers/Util';
 // @controllerInicializado()
 export class NegociacaoController {
     // @domJqueryProps("#data")
-    private inputData: JQuery
+    private _inputData: JQuery
 
     // @domJqueryProps("#valor")
-    private inputQuantidade: JQuery
+    private _inputQuantidade: JQuery
 
     // @domJqueryProps("#quantidade")
-    private inputValor: JQuery
-    private negociacoes: Negociacoes = new Negociacoes();
-    private negociacoesView: NegociacoesView = new NegociacoesView("#negociacoesView");
-    private mensagemView: MensagemView = new MensagemView("#mensagemView");
+    private _inputValor: JQuery
+    private _negociacoes: Negociacoes = new Negociacoes();
+    private _negociacoesView: NegociacoesView = new NegociacoesView("#negociacoesView");
+    private _mensagemView: MensagemView = new MensagemView("#mensagemView");
 
     constructor() {
-        this.inputData = $("#data");
-        this.inputValor = $("#valor");
-        this.inputQuantidade = $("#quantidade");
-
-        this.negociacoesView.update(this.negociacoes);
+        this._inputData = $("#data");
+        this._inputValor = $("#valor");
+        this._inputQuantidade = $("#quantidade");
+        this._negociacoesView.update(this._negociacoes);
     }
 
     // @logarTempoDeExecucao()
     adicionar(): void {
-        let data = new Date(this.inputData.val().replace(/-/g, ","));
-        let quantidade = parseInt(this.inputQuantidade.val());
-        let valor = parseFloat(this.inputValor.val());
+        let data = new Date(this._inputData.val().replace(/-/g, ","));
+        let quantidade = parseInt(this._inputQuantidade.val());
+        let valor = parseFloat(this._inputValor.val());
 
         if (this._ehDiaUtil(data)) {
-            this.mensagemView.update("Por favor, negociações são permitidas apenas em dias utéis!");
+            this._mensagemView.update("Por favor, negociações são permitidas apenas em dias utéis!");
             return;
         }
 
         const negociacao = new Negociacao(data, quantidade, valor);
 
-        this.negociacoes.adiciona(negociacao);
-        this.negociacoesView.update(this.negociacoes);
-        this.mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
+        this._negociacoes.adiciona(negociacao);
+        this._negociacoesView.update(this._negociacoes);
+        this._mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
 
-        imprimir(negociacao, this.negociacoes);
+        imprimir(negociacao, this._negociacoes);
     }
 
     importar(): void {
@@ -52,12 +51,13 @@ export class NegociacaoController {
             .then((response: Array<Dado>) => {
                 response.forEach(item => {
                     let negociacao = new Negociacao(new Date(), item.vezes, item.montante);
-                    this.negociacoes.adiciona(negociacao);
-                    this.negociacoesView.update(this.negociacoes);
+                    this._negociacoes.adiciona(negociacao);
+                    this._negociacoesView.update(this._negociacoes);
                 });
 
-                this.mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
-            });
+                this._mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
+            })
+            .catch(error => this._mensagemView.update(error.message));
     }
 
     private _ehDiaUtil(data: Date): boolean {
