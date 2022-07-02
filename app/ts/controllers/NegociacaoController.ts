@@ -1,3 +1,4 @@
+import { DiaSemana } from './../models/enums/DiasSemana';
 import { NegociacaoService, Dado } from './../services/NegociacaoService';
 import { MensagemView, NegociacoesView } from '../views/index';
 import { Negociacao, Negociacoes } from '../models/index';
@@ -66,14 +67,4 @@ export class NegociacaoController {
     private _ehDiaUtil(data: Date): boolean {
         return data.getDay() != DiaSemana.Domingo && data.getDay() != DiaSemana.Sabado
     }
-}
-
-enum DiaSemana {
-    Domingo,
-    Segunda,
-    Terca,
-    Quarta,
-    Quinta,
-    Sexta,
-    Sabado
 }
