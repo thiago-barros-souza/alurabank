@@ -1,11 +1,11 @@
-import { Api } from './../helpers/Api';
+import { NegociacaoService, Dado } from './../services/NegociacaoService';
 import { MensagemView, NegociacoesView } from '../views/index';
 import { Negociacao, Negociacoes } from '../models/index';
-import { controllerInicializado, domJqueryProps, logarTempoDeExecucao } from '../helpers/decorators/index';
+import { imprimir } from '../helpers/Util';
+// import { controllerInicializado, domJqueryProps, logarTempoDeExecucao } from '../helpers/decorators/index';
 
 // @controllerInicializado()
-export class NegociacaoController
-{
+export class NegociacaoController {
     // @domJqueryProps("#data")
     private inputData: JQuery
 
@@ -18,8 +18,7 @@ export class NegociacaoController
     private negociacoesView: NegociacoesView = new NegociacoesView("#negociacoesView");
     private mensagemView: MensagemView = new MensagemView("#mensagemView");
 
-    constructor()
-    {
+    constructor() {
         this.inputData = $("#data");
         this.inputValor = $("#valor");
         this.inputQuantidade = $("#quantidade");
@@ -28,14 +27,12 @@ export class NegociacaoController
     }
 
     // @logarTempoDeExecucao()
-    adicionar(): void
-    {
+    adicionar(): void {
         let data = new Date(this.inputData.val().replace(/-/g, ","));
         let quantidade = parseInt(this.inputQuantidade.val());
         let valor = parseFloat(this.inputValor.val());
 
-        if (this._ehDiaUtil(data))
-        {
+        if (this._ehDiaUtil(data)) {
             this.mensagemView.update("Por favor, negociações são permitidas apenas em dias utéis!");
             return;
         }
@@ -45,32 +42,30 @@ export class NegociacaoController
         this.negociacoes.adiciona(negociacao);
         this.negociacoesView.update(this.negociacoes);
         this.mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
+
+        imprimir(negociacao, this.negociacoes);
     }
 
-    importar()
-    {
-        const api = new Api();
-        api.getDados()
-            .then(
-                response =>
-                {
-                    console.log(response);
-                },
-                error =>
-                {
-                    console.log(error);
-                }
-            );
+    importar(): void {
+        const negociacaoService: NegociacaoService = new NegociacaoService();
+        negociacaoService.obterNegociacao()
+            .then((response: Array<Dado>) => {
+                response.forEach(item => {
+                    let negociacao = new Negociacao(new Date(), item.vezes, item.montante);
+                    this.negociacoes.adiciona(negociacao);
+                    this.negociacoesView.update(this.negociacoes);
+                });
+
+                this.mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
+            });
     }
 
-    private _ehDiaUtil(data: Date): boolean
-    {
+    private _ehDiaUtil(data: Date): boolean {
         return data.getDay() != DiaSemana.Domingo && data.getDay() != DiaSemana.Sabado
     }
 }
 
-enum DiaSemana 
-{
+enum DiaSemana {
     Domingo,
     Segunda,
     Terca,
