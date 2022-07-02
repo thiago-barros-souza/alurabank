@@ -45,19 +45,22 @@ export class NegociacaoController {
         imprimir(negociacao, this._negociacoes);
     }
 
-    importar(): void {
-        const negociacaoService: NegociacaoService = new NegociacaoService();
-        negociacaoService.obterNegociacao()
-            .then((response: Array<Dado>) => {
-                response.forEach(item => {
-                    let negociacao = new Negociacao(new Date(), item.vezes, item.montante);
-                    this._negociacoes.adiciona(negociacao);
-                    this._negociacoesView.update(this._negociacoes);
-                });
+    async importar(): Promise<void> {
+        try {
+            const negociacaoService: NegociacaoService = new NegociacaoService();
+            const negociacoesParaImportar = await negociacaoService.obterNegociacao();
 
-                this._mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
-            })
-            .catch(error => this._mensagemView.update(error.message));
+            negociacoesParaImportar.forEach(item => {
+                let negociacao = new Negociacao(new Date(), item.vezes, item.montante);
+                this._negociacoes.adiciona(negociacao);
+                this._negociacoesView.update(this._negociacoes);
+            });
+
+            this._mensagemView.update(MessageHelper.NEGOCIACAO_SUCESSO);
+        }
+        catch (error) {
+            this._mensagemView.update(error.message);
+        }
     }
 
     private _ehDiaUtil(data: Date): boolean {
