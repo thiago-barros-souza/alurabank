@@ -1,9 +1,9 @@
-import { DiaSemana } from './../models/enums/DiasSemana';
-import { NegociacaoService, Dado } from './../services/NegociacaoService';
-import { MensagemView, NegociacoesView } from '../views/index';
-import { Negociacao, Negociacoes } from '../models/index';
-import { imprimir } from '../helpers/Util';
-// import { controllerInicializado, domJqueryProps, logarTempoDeExecucao } from '../helpers/decorators/index';
+import { DiaSemana } from '../models/enums/DiasSemana.js';
+import { NegociacaoService, Dado } from '../services/NegociacaoService.js';
+import { MensagemView, NegociacoesView } from '../views/index.js';
+import { Negociacao, Negociacoes } from '../models/index.js';
+import { imprimir } from '../helpers/Util.js';
+// import { controllerInicializado, domJqueryProps, logarTempoDeExecucao } from '../helpers/decorators/index.js';
 
 // @controllerInicializado()
 export class NegociacaoController {

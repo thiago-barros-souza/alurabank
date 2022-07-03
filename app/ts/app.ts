@@ -1,15 +1,13 @@
-import { NegociacaoController } from './controllers/NegociacaoController';
+import { NegociacaoController } from './controllers/NegociacaoController.js';
 
 const negociacaoController = new NegociacaoController();
 
 // Usando JQuery
-$(".form").on("submit", (event: Event) =>
-{
+$(".form").on("submit", (event: Event) => {
     event.preventDefault();
     negociacaoController.adicionar();
 });
 
-$("#import-data").on('click', (event: Event) => 
-{
+$("#import-data").on('click', (event: Event) => {
     negociacaoController.importar();
 });

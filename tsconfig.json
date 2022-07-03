@@ -5,7 +5,7 @@
         "typeRoots": [
             "node_modules/@types/"
         ],
-        "noEmitOnError": true,
+        "noEmitOnError": false,
         "noImplicitAny": true,
         "removeComments": true,
         "strictNullChecks": true,

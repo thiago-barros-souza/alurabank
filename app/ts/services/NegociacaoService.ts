@@ -1,4 +1,4 @@
-import { ApiService } from './ApiService';
+import { ApiService } from './ApiService.js';
 
 export class NegociacaoService extends ApiService {
     private uri: string = "/dados";

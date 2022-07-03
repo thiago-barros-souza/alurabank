@@ -1,11 +1,10 @@
-import { Negociacao } from './../models/Negociacao';
-import { Negociacoes } from './../models/Negociacoes';
-import { View } from "./View";
+import { Negociacao } from '../models/Negociacao.js';
+import { Negociacoes } from '../models/Negociacoes.js';
+import { View } from "./View.js";
 
 export class NegociacoesView extends View<Negociacoes>
 {
-    protected template(model: Negociacoes): string
-    {
+    protected template(model: Negociacoes): string {
         return `
             <table class="table table-hover table-bordered">
                 <thead>
@@ -19,7 +18,7 @@ export class NegociacoesView extends View<Negociacoes>
 
                 <tbody>
                     ${model.paraArray().map((model: Negociacao) =>
-                        `
+            `
                             <tr>
                                 <td>${ConversorHelper.getDateBR(model.data)}</td>
                                 <td>${model.quantidade}</td>
@@ -27,7 +26,7 @@ export class NegociacoesView extends View<Negociacoes>
                                 <td>${model.getVolume()}</td>
                             </tr>
                         `
-                    ).join("")}
+        ).join("")}
                 </tbody>
 
                 <tfoot>

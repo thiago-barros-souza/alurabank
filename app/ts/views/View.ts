@@ -1,23 +1,20 @@
-import { logarTempoDeExecucao } from "../helpers/decorators/index";
+// import { logarTempoDeExecucao } from "../helpers/decorators/index.js";
 
 export abstract class View<T>
 {
     private elementView: JQuery;
     private escapar: boolean;
 
-    constructor(selector: string, escapar: boolean = false)
-    {
+    constructor(selector: string, escapar: boolean = false) {
         this.elementView = $(selector);
         this.escapar = escapar;
     }
 
     // @logarTempoDeExecucao()
-    update(model: T): void
-    {
+    update(model: T): void {
         let template = this.template(model);
 
-        if (this.escapar)
-        {
+        if (this.escapar) {
             template = template.replace(/<script>[\s\S]*?<\/script>/, '');
         }
 

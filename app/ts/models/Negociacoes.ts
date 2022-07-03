@@ -1,6 +1,6 @@
-import { Igualavel } from './Igualavel';
-import { Imprimivel } from './Imprimivel';
-import { Negociacao } from './Negociacao';
+import { Igualavel } from './Igualavel.js';
+import { Imprimivel } from './Imprimivel.js';
+import { Negociacao } from './Negociacao.js';
 
 export class Negociacoes implements Imprimivel, Igualavel<Negociacoes> {
     private listaNegociacao: Array<Negociacao> = [];
